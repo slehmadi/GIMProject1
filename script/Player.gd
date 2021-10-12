@@ -18,20 +18,28 @@ func _ready():
 
 func _physics_process(delta):
 	axis.x = 0
-	inputPlayer(delta)
+	inputPlayer()
 	playerAct(delta)
 	
 	
 
-func inputPlayer(delta):
+func inputPlayer():
 	if Input.is_action_pressed("RIGHT"):
-		axis.x += 1
+		if is_on_floor():
+			axis.x += 1
+		else:
+			axis.x += 0.65
 	if Input.is_action_pressed("LEFT"):
-		axis.x -= 1
+		if is_on_floor():
+			axis.x -= 1
+		else:
+			axis.x -= 0.65
 	if Input.is_action_pressed("JUMP") and is_on_floor():
 		velocity.y = jumpForce
 	if Input.is_action_pressed("DOWN") and !is_on_floor():
 		velocity.y = gravity * 2
+	if Input.is_action_pressed("ATTACK"):
+		$AnimatedSprite.animation += "attack"
 	
 func playerAct(delta):
 	if (axis.x):
@@ -61,3 +69,7 @@ func jumpCondition():
 		$AnimatedSprite.animation = "jumpUp"
 	else:
 		$AnimatedSprite.animation = "jumpDown"
+
+
+func _on_Player_draw():
+	pass # Replace with function body.
