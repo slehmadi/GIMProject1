@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/waterfall1.png-5c57040a7a90fd0a4c6c8f73c7c8225d.stex"
+path="res://.import/waterfall1.png-f161b492c6fcdff52c51d74920ea3faf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background/waterfall/waterfall1.png"
-dest_files=[ "res://.import/waterfall1.png-5c57040a7a90fd0a4c6c8f73c7c8225d.stex" ]
+source_file="res://assets/background/waterfall/waterfall1.png"
+dest_files=[ "res://.import/waterfall1.png-f161b492c6fcdff52c51d74920ea3faf.stex" ]
 
 [params]
 

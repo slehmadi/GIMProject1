@@ -10,37 +10,40 @@ onready var camera = $Camera2D
 
 func _ready():
 	camera.limit_left = 0
+	camera.limit_right = 1612
 	camera.limit_bottom = 690
-	camera.limit_top = 50
-
-#func _process(delta):
-#	pass
+	camera.limit_top = 0
 
 func _physics_process(delta):
 	axis.x = 0
 	inputPlayer()
 	playerAct(delta)
-	
-	
+	if (self.position.y >= 693):
+		self.position.x = 255
+		self.position.y = 200
 
 func inputPlayer():
 	if Input.is_action_pressed("RIGHT"):
 		if is_on_floor():
-			axis.x += 1
+			axis.x += 0.8
 		else:
-			axis.x += 0.65
+			if velocity.y < 0:
+				axis.x += 0.5
+			else:
+				axis.x += 0.6
 	if Input.is_action_pressed("LEFT"):
 		if is_on_floor():
-			axis.x -= 1
+			axis.x -= 0.8
 		else:
-			axis.x -= 0.65
+			if velocity.y < 0:
+				axis.x -= 0.5
+			else:
+				axis.x -= 0.6
 	if Input.is_action_pressed("JUMP") and is_on_floor():
 		velocity.y = jumpForce
 	if Input.is_action_pressed("DOWN") and !is_on_floor():
 		velocity.y = gravity * 2
-	if Input.is_action_pressed("ATTACK"):
-		$AnimatedSprite.animation += "attack"
-	
+
 func playerAct(delta):
 	if (axis.x):
 		if is_on_floor() and !is_on_wall():
@@ -71,5 +74,3 @@ func jumpCondition():
 		$AnimatedSprite.animation = "jumpDown"
 
 
-func _on_Player_draw():
-	pass # Replace with function body.
