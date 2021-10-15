@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://assets/Sprites/Player/idle/idle1.png" type="Texture" id=1]
 [ext_resource path="res://script/Player.gd" type="Script" id=2]
@@ -43,9 +43,12 @@
 [ext_resource path="res://script/Coins.gd" type="Script" id=41]
 [ext_resource path="res://assets/background/waterfall/waterfall_bottom.tres" type="Texture" id=42]
 [ext_resource path="res://assets/Tiles/platform1.png" type="Texture" id=43]
-[ext_resource path="res://ImportFile/platform_metroidvania asset pack v1.01/miscellaneous sprites/door.png" type="Texture" id=44]
+[ext_resource path="res://assets/Buttons/buttonQ.png" type="Texture" id=44]
 [ext_resource path="res://script/Door.gd" type="Script" id=45]
-[ext_resource path="res://ImportFile/input_prompt/Tiles/tile_0087.png" type="Texture" id=46]
+[ext_resource path="res://assets/Sprites/door.png" type="Texture" id=46]
+[ext_resource path="res://assets/Buttons/buttonE.png" type="Texture" id=47]
+[ext_resource path="res://assets/Buttons/buttonF.png" type="Texture" id=48]
+[ext_resource path="res://script/Result.gd" type="Script" id=49]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -84,6 +87,14 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 8.0
+} ]
+
+[sub_resource type="SpriteFrames" id=32]
+animations = [ {
+"frames": [ ExtResource( 26 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 25 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
 } ]
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
@@ -1142,10 +1153,10 @@ points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
 121/shapes = [  ]
 121/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=36]
+[sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 41.3567, 12.1442 )
 
-[sub_resource type="Animation" id=38]
+[sub_resource type="Animation" id=26]
 resource_name = "move"
 length = 5.0
 loop = true
@@ -1162,7 +1173,7 @@ tracks/0/keys = {
 "values": [ Vector2( 970, 237.08 ), Vector2( 660, 237.08 ) ]
 }
 
-[sub_resource type="TileSet" id=32]
+[sub_resource type="TileSet" id=27]
 0/name = "waterfall1"
 0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
@@ -1178,7 +1189,7 @@ tracks/0/keys = {
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="TileSet" id=33]
+[sub_resource type="TileSet" id=28]
 0/name = "bottom1"
 0/texture = ExtResource( 42 )
 0/tex_offset = Vector2( 0, 0 )
@@ -1208,7 +1219,7 @@ tracks/0/keys = {
 1/shapes = [  ]
 1/z_index = 0
 
-[sub_resource type="SpriteFrames" id=34]
+[sub_resource type="SpriteFrames" id=29]
 animations = [ {
 "frames": [ ExtResource( 26 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 25 ), ExtResource( 27 ) ],
 "loop": true,
@@ -1221,10 +1232,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=35]
+[sub_resource type="CircleShape2D" id=30]
 radius = 4.39596
 
-[sub_resource type="RectangleShape2D" id=39]
+[sub_resource type="RectangleShape2D" id=31]
 extents = Vector2( 23.7646, 26.4985 )
 
 [node name="World" type="Node"]
@@ -1237,13 +1248,17 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+door_path = NodePath("../env/Door")
+doorPopup_path = NodePath("../env/Door/PopupPanel")
+finishOption_path = NodePath("../CanvasLayer/UI/FinishOption")
+result_path = NodePath("../CanvasLayer/UI/Result")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
 position = Vector2( 4.16697, -0.198436 )
 scale = Vector2( 2.01693, 2.01693 )
 frames = SubResource( 1 )
 animation = "walk"
-frame = 5
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -1291,6 +1306,114 @@ frames = SubResource( 3 )
 frame = 3
 playing = true
 
+[node name="FinishOption" type="Panel" parent="CanvasLayer/UI"]
+margin_left = 384.0
+margin_top = 22.0
+margin_right = 676.0
+margin_bottom = 136.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TEXT" type="Label" parent="CanvasLayer/UI/FinishOption"]
+margin_right = 288.0
+margin_bottom = 65.0
+text = "You sure you want to finish it?"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = -0.04
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YES" type="Panel" parent="CanvasLayer/UI/FinishOption"]
+margin_left = 8.96613
+margin_top = 52.4408
+margin_right = 106.966
+margin_bottom = 95.4408
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/FinishOption/YES"]
+margin_left = 26.2379
+margin_top = 11.6715
+margin_right = 101.238
+margin_bottom = 37.6715
+text = "YES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/UI/FinishOption/YES"]
+position = Vector2( 34.8833, 22.8935 )
+scale = Vector2( 1.80193, 1.80193 )
+texture = ExtResource( 47 )
+
+[node name="NO" type="Panel" parent="CanvasLayer/UI/FinishOption"]
+margin_left = 176.16
+margin_top = 52.939
+margin_right = 274.16
+margin_bottom = 95.939
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/FinishOption/NO"]
+margin_left = 26.2379
+margin_top = 11.6715
+margin_right = 101.238
+margin_bottom = 37.6715
+text = "NO"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/UI/FinishOption/NO"]
+position = Vector2( 32.2136, 23.2238 )
+scale = Vector2( 1.802, 1.802 )
+texture = ExtResource( 44 )
+
+[node name="Result" type="Panel" parent="CanvasLayer/UI"]
+margin_left = 383.571
+margin_top = 226.115
+margin_right = 621.571
+margin_bottom = 363.115
+script = ExtResource( 49 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+coins_collected_path = NodePath("../CoinsCounter")
+
+[node name="Top" type="Label" parent="CanvasLayer/UI/Result"]
+margin_right = 240.0
+margin_bottom = 51.0
+text = "Congratulations!!
+You've got"
+align = 1
+valign = 1
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer/UI/Result"]
+position = Vector2( 119.802, 73.0825 )
+scale = Vector2( 5.33823, 5.33823 )
+frames = SubResource( 32 )
+frame = 5
+playing = true
+
+[node name="Total" type="Label" parent="CanvasLayer/UI/Result"]
+margin_left = 101.448
+margin_top = 99.4456
+margin_right = 141.448
+margin_bottom = 113.446
+text = "3/3"
+align = 1
+valign = 1
+
 [node name="env" type="Node2D" parent="."]
 
 [node name="ground" type="Node2D" parent="env"]
@@ -1332,7 +1455,7 @@ texture = ExtResource( 43 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="env/platform/Platform1"]
 position = Vector2( 17.0388, -5.56435 )
-shape = SubResource( 36 )
+shape = SubResource( 25 )
 one_way_collision = true
 
 [node name="Platform2" type="KinematicBody2D" parent="env/platform"]
@@ -1349,13 +1472,13 @@ texture = ExtResource( 43 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="env/platform/Platform2"]
 position = Vector2( 17.0388, -5.56435 )
-shape = SubResource( 36 )
+shape = SubResource( 25 )
 one_way_collision = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="env/platform/Platform2"]
 autoplay = "move"
 playback_process_mode = 0
-anims/move = SubResource( 38 )
+anims/move = SubResource( 26 )
 
 [node name="Waterfall" type="Node2D" parent="env"]
 
@@ -1364,7 +1487,7 @@ anims/move = SubResource( 38 )
 [node name="waterfall" type="TileMap" parent="env/Waterfall/Waterfall 1"]
 position = Vector2( -657.475, -1126.3 )
 scale = Vector2( 4, 4 )
-tile_set = SubResource( 32 )
+tile_set = SubResource( 27 )
 cell_size = Vector2( 8, 8 )
 format = 1
 tile_data = PoolIntArray( 2883634, 0, 0, 2883635, 0, 0, 2883636, 0, 0, 2883637, 0, 0, 2883638, 0, 0, 2883639, 0, 0, 2949170, 0, 0, 2949171, 0, 0, 2949172, 0, 0, 2949173, 0, 0, 2949174, 0, 0, 2949175, 0, 0, 3014706, 0, 0, 3014707, 0, 0, 3014708, 0, 0, 3014709, 0, 0, 3014710, 0, 0, 3014711, 0, 0, 3080242, 0, 0, 3080243, 0, 0, 3080244, 0, 0, 3080245, 0, 0, 3080246, 0, 0, 3080247, 0, 0, 3145778, 0, 0, 3145779, 0, 0, 3145780, 0, 0, 3145781, 0, 0, 3145782, 0, 0, 3145783, 0, 0, 3211314, 0, 0, 3211315, 0, 0, 3211316, 0, 0, 3211317, 0, 0, 3211318, 0, 0, 3211319, 0, 0, 3276850, 0, 0, 3276851, 0, 0, 3276852, 0, 0, 3276853, 0, 0, 3276854, 0, 0, 3276855, 0, 0, 3342386, 0, 0, 3342387, 0, 0, 3342388, 0, 0, 3342389, 0, 0, 3342390, 0, 0, 3342391, 0, 0, 3407922, 0, 0, 3407923, 0, 0, 3407924, 0, 0, 3407925, 0, 0, 3407926, 0, 0, 3407927, 0, 0, 3473458, 0, 0, 3473459, 0, 0, 3473460, 0, 0, 3473461, 0, 0, 3473462, 0, 0, 3473463, 0, 0, 3538994, 0, 0, 3538995, 0, 0, 3538996, 0, 0, 3538997, 0, 0, 3538998, 0, 0, 3538999, 0, 0, 3604531, 0, 0, 3604532, 0, 0, 3604533, 0, 0, 3604534, 0, 0, 3670067, 0, 0, 3670068, 0, 0, 3670069, 0, 0, 3670070, 0, 0 )
@@ -1372,7 +1495,7 @@ tile_data = PoolIntArray( 2883634, 0, 0, 2883635, 0, 0, 2883636, 0, 0, 2883637, 
 [node name="bottom" type="TileMap" parent="env/Waterfall/Waterfall 1"]
 position = Vector2( -657.475, -1126.3 )
 scale = Vector2( 4, 4 )
-tile_set = SubResource( 33 )
+tile_set = SubResource( 28 )
 cell_size = Vector2( 8, 8 )
 format = 1
 tile_data = PoolIntArray( 3538994, 1, 0, 3538999, 0, 0 )
@@ -1392,13 +1515,13 @@ coins_collected_path = NodePath("../../../CanvasLayer/UI/CoinsCounter")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="env/Coins/Coin1"]
 position = Vector2( -0.44545, 0.222725 )
-frames = SubResource( 34 )
+frames = SubResource( 29 )
 frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="env/Coins/Coin1"]
 position = Vector2( -0.595276, 0 )
-shape = SubResource( 35 )
+shape = SubResource( 30 )
 
 [node name="Coin2" type="Area2D" parent="env/Coins"]
 position = Vector2( 400.714, 632.915 )
@@ -1412,13 +1535,13 @@ coins_collected_path = NodePath("../../../CanvasLayer/UI/CoinsCounter")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="env/Coins/Coin2"]
 position = Vector2( -0.44545, 0.222725 )
-frames = SubResource( 34 )
+frames = SubResource( 29 )
 frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="env/Coins/Coin2"]
 position = Vector2( -0.595276, 0 )
-shape = SubResource( 35 )
+shape = SubResource( 30 )
 
 [node name="Coin3" type="Area2D" parent="env/Coins"]
 position = Vector2( 967.812, 158.109 )
@@ -1432,27 +1555,28 @@ coins_collected_path = NodePath("../../../CanvasLayer/UI/CoinsCounter")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="env/Coins/Coin3"]
 position = Vector2( -0.44545, 0.222725 )
-frames = SubResource( 34 )
+frames = SubResource( 29 )
 frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="env/Coins/Coin3"]
 position = Vector2( -0.595276, 0 )
-shape = SubResource( 35 )
+shape = SubResource( 30 )
 
 [node name="Door" type="Area2D" parent="env"]
 position = Vector2( 1345.22, 383.252 )
 script = ExtResource( 45 )
 player_path = NodePath("../../Player")
 coins_collected_path = NodePath("../../CanvasLayer/UI/CoinsCounter")
+finishOption_path = NodePath("../../CanvasLayer/UI/FinishOption")
 
 [node name="Sprite" type="Sprite" parent="env/Door"]
 position = Vector2( 0.353394, -1.76773 )
 scale = Vector2( 2.2669, 2.2669 )
-texture = ExtResource( 44 )
+texture = ExtResource( 46 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="env/Door"]
-shape = SubResource( 39 )
+shape = SubResource( 31 )
 
 [node name="PopupPanel" type="Panel" parent="env/Door"]
 margin_left = -13.8201
@@ -1466,7 +1590,7 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="env/Door/PopupPanel"]
 position = Vector2( 16.158, 14.7363 )
 scale = Vector2( 2.41902, 2.41902 )
-texture = ExtResource( 46 )
+texture = ExtResource( 48 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="env"]
 
